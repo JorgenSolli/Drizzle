@@ -9,7 +9,7 @@
 						>
 							<div class="flex items-center">
 								<h1 class="flex-shrink-0 text-white text-2xl">
-									Mapper
+									Drizzle
 								</h1>
 								<div class="hidden md:block">
 									<div
