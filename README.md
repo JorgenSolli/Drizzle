@@ -1,4 +1,4 @@
-# mappr
+# Drizzle
 
 ## Project setup
 ```

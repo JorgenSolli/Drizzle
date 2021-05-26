@@ -1,0 +1,66 @@
+/**
+ * Service for calculating weather and communicating with the Yr API
+ */
+class Yr {
+
+    /**
+     * Gets the weather for a location
+     * @param {Number} lat 
+     * @param {Number} lng 
+     * @returns {Object}
+     */
+    async call (lat, lng) {
+        let url = `https://api.met.no/weatherapi/locationforecast/2.0/complete?lat=${lat}&lon=${lng}`
+        let response = await fetch(url);
+        let data = await response.json();
+
+        return data;
+    }
+
+    /**
+     * Parses the data from Yr
+     * @param {Object} weather 
+     * @returns {Object}
+     */
+    parseWeather(weather) {
+        let parsed = {
+            rain: []
+        }
+
+        weather.properties.timeseries.forEach( data => {
+            let details = data.data.next_1_hours?.details ??
+                data.data.next_6_hours?.details ??
+                data.data.next_12_hours?.details;
+
+            if (details) {
+                parsed.rain.push({
+                    time: data.time,
+                    probability_of_rain: details.probability_of_precipitation,
+                })
+            }
+        })
+
+        return parsed;
+    }
+
+    /**
+     * Gathers all weather data from polyline
+     * @param {Array} geoData 
+     * @returns {Array}
+     */
+    gatherData(geoData) {
+        let data = [];
+
+        geoData.forEach((latLng) => {
+            this.call(latLng.lat, latLng.lng).then(weather => {
+                data.push(
+                    this.parseWeather(weather)
+                );
+            });
+        });
+
+        return data;
+    }
+}
+
+export default Yr
