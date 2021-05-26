@@ -9,12 +9,12 @@ class Yr {
      * @param {Number} lng 
      * @returns {Object}
      */
-    async call (lat, lng) {
+    async call(lat, lng) {
         let url = `https://api.met.no/weatherapi/locationforecast/2.0/complete?lat=${lat}&lon=${lng}`
-        let response = await fetch(url);
-        let data = await response.json();
+        const response = await fetch(url);
+        const json = await response.json();
 
-        return data;
+        return json;
     }
 
     /**
@@ -27,14 +27,14 @@ class Yr {
             rain: []
         }
 
-        weather.properties.timeseries.forEach( data => {
+        weather.properties.timeseries.forEach(data => {
             let details = data.data.next_1_hours?.details ??
                 data.data.next_6_hours?.details ??
                 data.data.next_12_hours?.details;
 
             if (details) {
                 parsed.rain.push({
-                    time: data.time,
+                    dateTime: data.time,
                     probability_of_rain: details.probability_of_precipitation,
                 })
             }
@@ -48,16 +48,14 @@ class Yr {
      * @param {Array} geoData 
      * @returns {Array}
      */
-    gatherData(geoData) {
+    async gatherData(geoData) {
         let data = [];
 
-        geoData.forEach((latLng) => {
-            this.call(latLng.lat, latLng.lng).then(weather => {
-                data.push(
-                    this.parseWeather(weather)
-                );
+        for (const latLng of geoData) {
+            await this.call(latLng.lat, latLng.lng).then(weather => {
+                data.push(this.parseWeather(weather));
             });
-        });
+        }
 
         return data;
     }
