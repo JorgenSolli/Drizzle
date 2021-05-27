@@ -24,7 +24,8 @@ class Yr {
      */
     parseWeather(weather) {
         let parsed = {
-            rain: []
+            rain: [],
+            temperature: [],
         }
 
         weather.properties.timeseries.forEach(data => {
@@ -35,7 +36,15 @@ class Yr {
             if (details) {
                 parsed.rain.push({
                     dateTime: data.time,
-                    probability_of_rain: details.probability_of_precipitation,
+                    probability_of_precipitation: details.probability_of_precipitation ?? details.precipitation_amount,
+                })
+            }
+
+            let temperature = data.data.instant?.details?.air_temperature_percentile_90 ?? false
+            if (temperature) {
+                parsed.temperature.push({
+                    dateTime: data.time,
+                    temperature: temperature
                 })
             }
         })
@@ -45,17 +54,14 @@ class Yr {
 
     /**
      * Gathers all weather data from polyline
-     * @param {Array} geoData 
+     * @param {Object} coordinates 
      * @returns {Array}
      */
-    async gatherData(geoData) {
-        let data = [];
-
-        for (const latLng of geoData) {
-            await this.call(latLng.lat, latLng.lng).then(weather => {
-                data.push(this.parseWeather(weather));
-            });
-        }
+    async gatherData(coordinates) {
+        let data = {};
+        await this.call(coordinates.lat, coordinates.lng).then(weather => {
+            data = this.parseWeather(weather);
+        });
 
         return data;
     }

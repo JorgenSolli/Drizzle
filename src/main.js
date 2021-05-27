@@ -1,16 +1,48 @@
 import Vue from 'vue';
+import Vuex from 'vuex';
 import App from './App.vue';
+import { Icon } from 'leaflet';
+import VueLuxon from "vue-luxon";
 
 Vue.config.productionTip = false
-
-import { LMap, LTileLayer, LPolyline } from 'vue2-leaflet';
+import { LMap, LTileLayer, LTooltip, LMarker } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
 import "./app.css";
 
+// Fix marker icon
+delete Icon.Default.prototype._getIconUrl;
+Icon.Default.mergeOptions({
+    iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+    iconUrl: require('leaflet/dist/images/marker-icon.png'),
+    shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+});
+
 Vue.component('LMap', LMap);
 Vue.component('LTileLayer', LTileLayer);
-Vue.component('LPolyline', LPolyline);
+Vue.component('LTooltip', LTooltip);
+Vue.component('LMarker', LMarker);
+
+Vue.use(VueLuxon);
+Vue.use(Vuex);
+
+const store = new Vuex.Store({
+    state: {
+        locations: [],
+    },
+    mutations: {
+        setLocations(state, locations) {
+            state.locations = locations
+        },
+        addLocation(state, location) {
+            state.locations.push(location);
+        },
+        removeLocation(state, locationKey) {
+            state.locations.splice(locationKey, 1);
+        }
+    }
+});
 
 new Vue({
-  render: h => h(App),
+    render: h => h(App),
+    store,
 }).$mount('#app')

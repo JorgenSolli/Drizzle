@@ -6,30 +6,58 @@ import { DateTime } from 'luxon'
 class Statistics {
 
     constructor() {
-        this.rain = []
+        this.days = []
     }
 
     /**
      * Constructs the class
-     * @param {Array} locations 
+     * @param {Object} location 
      */
-    calculateRain(locations) {
-        locations.forEach(location => {
-            location.rain.forEach(weather => {
-                let date = DateTime.fromISO(weather.dateTime)
-                let dayInYear = date.toFormat('o');
-                let day = this.rain.find(e => e.id == dayInYear);
+    calculateRain(location) {
+        location.rain.forEach(weather => {
+            let date = DateTime.fromISO(weather.dateTime)
+            let dayInYear = date.toFormat('o');
+            let day = this.days.find(e => e.id == dayInYear);
 
-                if (day) {
-                    day.data.push(weather)
-                } else {
-                    this.rain.push({
-                        id: dayInYear,
-                        date: date,
-                        data: [weather]
-                    })
+            if (day) {
+                if (!day.rain) {
+                    day.rain = [];
                 }
-            })
+
+                day.rain.push(weather)
+            } else {
+                this.days.push({
+                    id: dayInYear,
+                    date: date,
+                    rain: [weather]
+                })
+            }
+        });
+    }
+
+    /**
+     * Constructs the class
+     * @param {Object} location 
+     */
+     calculateTemperature(location) {
+        location.temperature.forEach(weather => {
+            let date = DateTime.fromISO(weather.dateTime)
+            let dayInYear = date.toFormat('o');
+            let day = this.days.find(e => e.id == dayInYear);
+
+            if (day) {
+                if (!day.temperature) {
+                    day.temperature = [];
+                }
+
+                day.temperature.push(weather)
+            } else {
+                this.days.push({
+                    id: dayInYear,
+                    date: date,
+                    temperature: [weather]
+                })
+            }
         });
     }
 }

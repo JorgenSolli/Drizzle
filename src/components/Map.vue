@@ -2,16 +2,22 @@
     <LMap
         :zoom="zoom"
         :center="center"
-        style="height: 95vh; width: 100%"
-        @click="addPath"
+        style="height: 500px; width: 100%"
+        @click="addMarker"
     >
         <LTileLayer :url="url" />
 
-        <LPolyline
-            :lat-lngs="polyline.latlngs"
-            :color="polyline.color"
-            @click="removePath"
-        />
+		<LMarker
+			v-for="(location, index) in locations"
+			ref="locations"
+			@click="removeLocation"
+			:key="location.id"
+			:lat-lng="[location.lat, location.lng]"
+		>
+			<LTooltip>
+				{{ `Location #${index + 1}` }}
+			</LTooltip>
+		</LMarker>
     </LMap>
 </template>
 
@@ -22,22 +28,21 @@ export default {
 			zoom: 6,
 			center: [60.8847597382675, 8.338560014963152],
 			url: "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
-			polyline: {
-				latlngs: [],
-				color: "green",
-			},
-			weather: [],
 		};
 	},
+	props: {
+		locations: {
+			type: Array,
+			required: true,
+		}
+	},
 	methods: {
-		addPath(event) {
-			this.polyline.latlngs.push(event.latlng);
+		addMarker(event) {
+			let coordinates = event.latlng;
+			this.$emit('new-location', coordinates);
 		},
-		removePath(event) {
+		removeLocation(event) {
 			console.log(event);
-		},
-		checkWeather() {
-			this.weather = this.yr.gatherData(this.polyline.latlngs);
 		},
 	},
 };
