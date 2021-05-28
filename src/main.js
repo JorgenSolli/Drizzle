@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import App from './App.vue';
 import { Icon } from 'leaflet';
 import VueLuxon from "vue-luxon";
+import PortalVue from 'portal-vue'
 
 Vue.config.productionTip = false
 import { LMap, LTileLayer, LTooltip, LMarker } from 'vue2-leaflet';
@@ -23,6 +24,7 @@ Vue.component('LTooltip', LTooltip);
 Vue.component('LMarker', LMarker);
 
 Vue.use(VueLuxon);
+Vue.use(PortalVue);
 Vue.use(Vuex);
 
 const store = new Vuex.Store({

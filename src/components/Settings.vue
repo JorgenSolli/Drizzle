@@ -8,14 +8,8 @@
 				/>
 
                 <div class="ml-auto">
-                    <button
-                        @click="showSaveModal = true"
-                        type="button"
-                        class="inline-flex mr-4 items-center px-3 py-1 border border-transparent shadow-sm text-xs font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                    >
-                        <CheckIcon class="-ml-1 mr-2 h-5 w-5" />
-                        Save list
-                    </button>
+                    <Save v-model="showSaveModal" />
+                    <Saved v-model="showSavedModal" />
 
                     <button
                         @click="showSavedModal = true"
@@ -28,15 +22,12 @@
                 </div>
 			</div>
 		</div>
-
-		<Save v-model="showSaveModal" />
-        <Saved v-model="showSavedModal" />
 	</div>
 </template>
 
 <script>
 import Toggle from "@/components/tailwind/Toggle";
-import { CheckIcon, ViewListIcon } from '@vue-hero-icons/outline';
+import { ViewListIcon } from '@vue-hero-icons/outline';
 import Save from '@/components/Save';
 import Saved from '@/components/Saved';
 
@@ -55,7 +46,6 @@ export default {
 	},
 	components: {
 		Toggle,
-        CheckIcon,
         ViewListIcon,
         Save,
         Saved,

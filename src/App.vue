@@ -1,5 +1,8 @@
 <template>
 	<div class="min-h-screen bg-gray-100">
+		<portal-target name="save-modal"/>
+		<portal-target name="saved-modal"/>
+
 		<div class="bg-gray-800 pb-32">
 			<nav class="bg-gray-800">
 				<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
