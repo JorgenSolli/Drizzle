@@ -134,7 +134,7 @@ export default {
 			let location = {
 				name: this.name,
 				created_at: DateTime.now(),
-				locations: locations,
+				locations: this.locations,
 			};
 
 			let locations = this.storage.get("drizzle-locations");

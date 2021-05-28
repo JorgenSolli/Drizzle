@@ -23,6 +23,7 @@
 								v-for="(list, index) in lists"
 								:key="index"
 								:list="list"
+								@update="fetch"
 							/>
 						</ul>
 					</div>
@@ -76,15 +77,11 @@ export default {
 		}),
 	},
 	mounted() {
-		this.lists = this.storage.get("drizzle-locations");
+		this.fetch()
 	},
 	methods: {
-		clickOutside() {
-			this.showContent = false;
-			this.resetModal();
-		},
-		close() {
-			this.resetModal();
+		fetch() {
+			this.lists = this.storage.get("drizzle-locations");
 		},
 	},
 };
