@@ -8,8 +8,8 @@
 				/>
 
                 <div class="ml-auto">
-                    <Create />
-                    <Restore />
+                    <Create  class="inline-flex"/>
+                    <Restore  class="inline-flex"/>
                 </div>
 			</div>
 		</div>

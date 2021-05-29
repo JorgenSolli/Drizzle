@@ -1,7 +1,7 @@
 <template>
 	<div class="mb-4 rounded-lg bg-white shadow">
-		<div class="px-4 py-5 sm:p-4 flex">
-			<h3 class="leading-6 font-medium text-gray-900" v-text="name" />
+		<div class="px-4 py-2 flex">
+			<h3 class="leading-6 font-medium text-gray-900 pt-1" v-text="name" />
 
 			<button
 				@click="$emit('remove-location', $vnode.key)"
