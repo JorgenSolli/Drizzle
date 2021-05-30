@@ -4,7 +4,7 @@
 			<Modal
 				v-model="showContent"
 				@close="showContent = false"
-				:close-on-outside-click="false"
+				:close-on-outside-click="true"
 			>
 				<template #header> Save locations </template>
 

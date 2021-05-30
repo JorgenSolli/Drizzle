@@ -2,6 +2,7 @@
 	<div class="min-h-screen bg-gray-100">
 		<portal-target name="save-modal"/>
 		<portal-target name="saved-modal"/>
+		<portal-target name="day-modal"/>
 
 		<div class="bg-gray-800 pb-32">
 			<nav class="bg-gray-800">
