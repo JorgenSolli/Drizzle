@@ -22,10 +22,6 @@
     nav#navigation .menu-item:not(.menu-active) {
         @apply text-gray-400 hover:text-gray-900;
     }
-
-    .rain-colors {
-        @apply bg-red-300 text-red-800 border-red-500 bg-green-300 text-green-800 border-green-500 bg-yellow-300 text-yellow-800 border-yellow-500;
-    }
 }
 
 .vue2leaflet-map {
