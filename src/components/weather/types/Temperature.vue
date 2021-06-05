@@ -1,6 +1,6 @@
 <template>
 	<div
-		:class="`bg-${colorIndication}-300 text-${colorIndication}-800 border-${colorIndication}-500`"
+		:class="colorIndication"
 	>
 		<img src="@/assets/temperature.png" class="h-4 mr-2 relative top-0.5" />
 		{{ averageTemperature }}&#8451;
@@ -27,11 +27,17 @@ export default {
 		},
 		colorIndication() {
 			if (this.averageTemperature >= 20) {
-				return "green";
+				return [
+					'bg-green-300', 'text-green-800', 'border-green-500'
+				];
 			} else if (this.averageTemperature > 10) {
-				return "yellow";
+				return [
+					'bg-yellow-300', 'text-yellow-800', 'border-yellow-500'
+				];
 			} else {
-				return "red";
+				return [
+					'bg-red-300', 'text-red-800', 'border-red-500'
+				];
 			}
 		},
 	},

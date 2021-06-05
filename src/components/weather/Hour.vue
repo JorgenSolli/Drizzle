@@ -16,7 +16,7 @@
                 
                 <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
                     <div
-                        :class="`${baseClass} bg-${rainColorIndication}-300 text-${rainColorIndication}-800 border-${rainColorIndication}-500`"
+                        :class="[baseClass, rainColorIndication]"
                     >
                         <img src="@/assets/rain.png" class="h-4 mr-2 relative top-0.5" />
                         {{ `${data.probability_of_precipitation}%` }}
@@ -24,7 +24,7 @@
 
                     <div
                         v-if="data.temperature"
-                        :class="`${baseClass} bg-${temperatureColorIndication}-300 text-${temperatureColorIndication}-800 border-${temperatureColorIndication}-500`"
+                        :class="[baseClass, temperatureColorIndication]"
                     >
                         <img
                             src="@/assets/temperature.png"
@@ -34,7 +34,8 @@
                     </div>
                     <div
                         v-else
-                        :class="`${baseClass} bg-red-300 text-red-800 border-red-500`"
+                        class="bg-red-300 text-red-800 border-red-500"
+                        :class="baseClass"
                     >
                         <img
                             src="@/assets/temperature.png"
@@ -71,20 +72,32 @@ export default {
 	computed: {
         rainColorIndication() {
 			if (this.data.probability_of_precipitation <= 30) {
-				return "green";
+				return [
+					'bg-green-300', 'text-green-800', 'border-green-500'
+				];
 			} else if (this.data.probability_of_precipitation <= 60) {
-				return "yellow";
+				return [
+					'bg-yellow-300', 'text-yellow-800', 'border-yellow-500'
+				];
 			} else {
-				return "red";
+				return [
+					'bg-red-300', 'text-red-800', 'border-red-500'
+				];
 			}
 		},
         temperatureColorIndication() {
             if (this.data.temperature >= 20) {
-				return "green";
+				return [
+					'bg-green-300', 'text-green-800', 'border-green-500'
+				];
 			} else if (this.data.temperature > 10) {
-				return "yellow";
+				return [
+					'bg-yellow-300', 'text-yellow-800', 'border-yellow-500'
+				];
 			} else {
-				return "red";
+				return [
+					'bg-red-300', 'text-red-800', 'border-red-500'
+				];
 			}
         }
 	},
