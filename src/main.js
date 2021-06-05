@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import VueRouter from 'vue-router'
 import App from './App.vue';
 import { Icon } from 'leaflet';
 import VueLuxon from "vue-luxon";
 import PortalVue from 'portal-vue'
+import router from './routes.js'
 
 Vue.config.productionTip = false
 import { LMap, LTileLayer, LTooltip, LMarker } from 'vue2-leaflet';
@@ -26,6 +28,7 @@ Vue.component('LMarker', LMarker);
 Vue.use(VueLuxon);
 Vue.use(PortalVue);
 Vue.use(Vuex);
+Vue.use(VueRouter);
 
 const store = new Vuex.Store({
     state: {
@@ -47,4 +50,5 @@ const store = new Vuex.Store({
 new Vue({
     render: h => h(App),
     store,
+    router
 }).$mount('#app')

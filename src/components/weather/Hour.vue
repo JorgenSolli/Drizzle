@@ -23,6 +23,7 @@
                     </div>
 
                     <div
+                        v-if="data.temperature"
                         :class="`${baseClass} bg-${temperatureColorIndication}-300 text-${temperatureColorIndication}-800 border-${temperatureColorIndication}-500`"
                     >
                         <img
@@ -30,6 +31,16 @@
                             class="h-4 mr-2 relative top-0.5"
                         />
                         {{ data.temperature }}&#8451;
+                    </div>
+                    <div
+                        v-else
+                        :class="`${baseClass} bg-red-300 text-red-800 border-red-500`"
+                    >
+                        <img
+                            src="@/assets/temperature.png"
+                            class="h-4 mr-2 relative top-0.5"
+                        />
+                        N/A
                     </div>
                 </div>
             </div>

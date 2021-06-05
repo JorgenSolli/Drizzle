@@ -16,6 +16,7 @@
     "portal-vue": "^2.1.7",
     "vue": "^2.6.11",
     "vue-luxon": "^0.10.0",
+    "vue-router": "^3.5.1",
     "vue2-leaflet": "^2.7.0",
     "vuex": "^3.6.2"
   },

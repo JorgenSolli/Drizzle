@@ -87,7 +87,10 @@ export default {
 	},
 	methods: {
 		fetch() {
-			this.lists = this.storage.get("drizzle-locations");
+			let lists = this.storage.get("drizzle-locations");
+			if (lists) {
+				this.lists = lists;
+			}
 		},
 	},
 };

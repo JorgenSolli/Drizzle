@@ -89,7 +89,7 @@ import { DateTime } from "luxon";
 import Storage from "@/services/Storage";
 import Modal from "@/components/tailwind/Modal";
 import { mapState } from "vuex";
-import Message from '@/components/tailwind/Message'
+import Message from '@/components/tailwind/Message';
 
 export default {
 	data() {

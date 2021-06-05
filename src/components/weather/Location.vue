@@ -14,6 +14,7 @@
 		</div>
 
 		<dl
+			v-if="statistics.days.length"
 			class="mt-1 grid grid-cols-1 overflow-hidden border-t border-gray-100 divide-y divide-gray-200 md:grid-cols-10 md:divide-y-0 md:divide-x"
 		>
 			<Day
@@ -23,6 +24,7 @@
 				:settings="settings"
 			/>
 		</dl>
+		<Message class="rounded-tl-none rounded-tr-none" :show="!statistics.days.length" error message="Failed to fetch data for this location"/>
 	</div>
 </template>
 
@@ -31,6 +33,7 @@ import Yr from "@/services/Yr";
 import Statistics from "@/services/Statistics";
 import Day from "@/components/weather/Day";
 import { TrashIcon } from "@vue-hero-icons/outline";
+import Message from '@/components/tailwind/Message'
 
 export default {
 	data() {
@@ -57,6 +60,7 @@ export default {
 	components: {
 		Day,
 		TrashIcon,
+		Message,
 	},
 	mounted() {
 		this.checkWeather();

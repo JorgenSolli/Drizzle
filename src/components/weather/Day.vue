@@ -78,7 +78,7 @@ export default {
 		return {
 			showContent: false,
 			baseClass:
-				"w-full mb-1 inline-flex items-baseline px-2.5 py-0.5 rounded-full text-sm font-medium md:mt-2 lg:mt-0 border",
+				"sm:w-full w-1/2 mb-1 inline-flex items-baseline px-2.5 py-0.5 rounded-full text-sm font-medium md:mt-2 lg:mt-0 border",
 		};
 	},
 	props: {
@@ -122,7 +122,7 @@ export default {
 					temperature:
 						this.temperatureData.find(
 							(weather) => weather.dateTime == rain.dateTime
-						).temperature ?? false,
+						)?.temperature ?? false,
 				});
 			});
 
@@ -136,6 +136,10 @@ export default {
 		 * @return {Array}
 		 */
 		weatherData(type) {
+			if (!this.day[type]) {
+				return [];
+			}
+
 			if (this.settings.ignore_night_time) {
 				return this.day[type].filter((entry) => {
 					let hourOfDay = this.$luxon(entry.dateTime, "H");
